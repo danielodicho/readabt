@@ -1,0 +1,66 @@
+
+#include <cs50.h> // get and string
+#include <stdio.h>
+#include <string.h> // strlen
+
+#include <math.h> // used the round function
+
+
+
+
+int main(void)
+{
+
+    string text = get_string("Text: "); // asks for user input
+    int lettercount = 0;
+    int wordcount = 1; // = 1 in case there is no space
+    int sentencecount = 0;
+
+
+
+    for (int i = 0; i < strlen(text); i++)  // loops so long as i is less than the length of the userinput
+    {
+        if (text[i] == '.' || text[i] == '?' || text[i] == '!') // check for any of these symbols to indicate a new sentence
+        {
+            sentencecount++;
+        }
+        if (text[i] == ' ') // checks for spaces indicating a new word
+        {
+            wordcount++;
+        }
+        if ((text[i] >= 'a' && text[i] <= 'z') || (text[i] >= 'A' && text[i] <= 'Z')) // checks for all the letters upper and lower, in an array that iterated for each value of i. ex. if i is 2 it check the third letter in the text to check if the letter matches one of those
+        {
+            lettercount++;
+        }
+    }
+
+    float index = (0.0588 * ((float)lettercount / (float) wordcount) * 100) - (0.296 * ((float)sentencecount / (float)wordcount) * 100) - 15.8;  // the formula for coleman-liau to calculate readability, variables declared floats because they have to be floats when calculateing, not integers
+    if ((int) round(index) > 16) // rounds the number to an integer, and check is it is large than 16 and prints accordingly
+    {
+        printf("Grade 16+\n");
+    }
+    else if ((int) round(index) < 1) // does the same but check is it it less than 1
+    {
+        printf("Before Grade 1\n");
+    }
+    else
+    {
+        printf("Grade %i\n", (int) round(index)); // if none of the if statements matches it prints out
+    }
+ 
+ 
+  
+
+
+
+
+
+
+
+   
+
+}
+
+
+
+
